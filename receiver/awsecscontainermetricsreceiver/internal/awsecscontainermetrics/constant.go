@@ -58,10 +58,17 @@ const (
 	attributeStorageRead  = "storage.read_bytes"
 	attributeStorageWrite = "storage.write_bytes"
 
+	attributesEphemeralStorageReserved = "ephemeralstorage.reserved"
+	attributesEphemeralStorageUtilized = "ephemeralstorage.utilized"
+
+	attributesClockDriftErrorBound            = "clockdrift.error.bound"
+	attributesClockDriftSynchronizationStatus = "clockdrift.synchronization.status"
+
 	attributeDuration = "duration"
 
 	unitBytes       = "Bytes"
 	unitMegaBytes   = "Megabytes"
+	unitMillisecond = "Milliseconds"
 	unitNanoSecond  = "Nanoseconds"
 	unitBytesPerSec = "Bytes/Second"
 	unitCount       = "Count"

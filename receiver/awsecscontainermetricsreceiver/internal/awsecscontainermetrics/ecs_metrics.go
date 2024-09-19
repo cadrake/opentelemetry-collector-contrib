@@ -35,4 +35,10 @@ type ECSMetrics struct {
 
 	StorageReadBytes  uint64
 	StorageWriteBytes uint64
+
+	EphemeralStorageUtilized uint64
+	EphemeralStorageReserved uint64
+
+	ClockDriftErrorBound            float64
+	ClockDriftSynchronizationStatus uint8
 }

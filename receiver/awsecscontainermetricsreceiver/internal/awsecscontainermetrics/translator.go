@@ -48,6 +48,12 @@ func convertToOTLPMetrics(prefix string, m ECSMetrics, r pcommon.Resource, times
 	appendIntSum(prefix+attributeStorageRead, unitBytes, int64(m.StorageReadBytes), timestamp, ilms.AppendEmpty())
 	appendIntSum(prefix+attributeStorageWrite, unitBytes, int64(m.StorageWriteBytes), timestamp, ilms.AppendEmpty())
 
+	appendIntSum(prefix+attributesEphemeralStorageReserved, unitBytes, int64(m.EphemeralStorageReserved), timestamp, ilms.AppendEmpty())
+	appendIntGauge(prefix+attributesEphemeralStorageUtilized, unitBytes, int64(m.EphemeralStorageUtilized), timestamp, ilms.AppendEmpty())
+
+	appendDoubleGauge(prefix+attributesClockDriftErrorBound, unitMillisecond, m.ClockDriftErrorBound, timestamp, ilms.AppendEmpty())
+	appendIntGauge(prefix+attributesClockDriftSynchronizationStatus, unitNone, int64(m.ClockDriftSynchronizationStatus), timestamp, ilms.AppendEmpty())
+
 	return md
 }
 

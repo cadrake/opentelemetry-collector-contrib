@@ -3,20 +3,24 @@
 
 package ecsutil // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/ecsutil"
 
+// TODO: Check if EphemeralStorage and ClockDrift can appear in container metadata
+
 // TaskMetadata defines task metadata for a task
 type TaskMetadata struct {
-	AvailabilityZone string              `json:"AvailabilityZone,omitempty"`
-	Cluster          string              `json:"Cluster,omitempty"`
-	Containers       []ContainerMetadata `json:"Containers,omitempty"`
-	Family           string              `json:"Family,omitempty"`
-	KnownStatus      string              `json:"KnownStatus,omitempty"`
-	LaunchType       string              `json:"LaunchType,omitempty"`
-	Limits           Limits              `json:"Limits,omitempty"`
-	PullStartedAt    string              `json:"PullStartedAt,omitempty"`
-	PullStoppedAt    string              `json:"PullStoppedAt,omitempty"`
-	Revision         string              `json:"Revision,omitempty"`
-	ServiceName      string              `json:"ServiceName,omitempty"`
-	TaskARN          string              `json:"TaskARN,omitempty"`
+	AvailabilityZone        string                   `json:"AvailabilityZone,omitempty"`
+	Cluster                 string                   `json:"Cluster,omitempty"`
+	Containers              []ContainerMetadata      `json:"Containers,omitempty"`
+	Family                  string                   `json:"Family,omitempty"`
+	KnownStatus             string                   `json:"KnownStatus,omitempty"`
+	LaunchType              string                   `json:"LaunchType,omitempty"`
+	Limits                  Limits                   `json:"Limits,omitempty"`
+	PullStartedAt           string                   `json:"PullStartedAt,omitempty"`
+	PullStoppedAt           string                   `json:"PullStoppedAt,omitempty"`
+	Revision                string                   `json:"Revision,omitempty"`
+	ServiceName             string                   `json:"ServiceName,omitempty"`
+	TaskARN                 string                   `json:"TaskARN,omitempty"`
+	EphemeralStorageMetrics *EphemeralStorageMetrics `json:"EphemeralStorageMetrics,omitempty"`
+	ClockDrift              *ClockDrift              `json:"ClockDrift,omitempty"`
 }
 
 // ContainerMetadata defines container metadata for a container
@@ -44,6 +48,19 @@ type ContainerMetadata struct {
 type Limits struct {
 	CPU    *float64 `json:"CPU,omitempty"`
 	Memory *uint64  `json:"Memory,omitempty"`
+}
+
+// EphemeralStorageMetrics defines the used and total ephemeral storage for the task
+type EphemeralStorageMetrics struct {
+	Utilized *uint64 `json:"Utilized,omitempty"`
+	Reserved *uint64 `json:"Reserved,omitempty"`
+}
+
+// ClockDrift defines the current reference and clock error details
+type ClockDrift struct {
+	ReferenceTime              string   `json:"ReferenceTime,omitempty"`
+	ClockErrorBound            *float64 `json:"ClockErrorBound,omitempty"`
+	ClockSynchronizationStatus string   `json:"ClockSynchronizationStatus,omitempty"`
 }
 
 // LogOptions defines the CloudWatch configuration

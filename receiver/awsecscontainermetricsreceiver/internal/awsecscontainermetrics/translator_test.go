@@ -25,7 +25,7 @@ func TestConvertToOTMetrics(t *testing.T) {
 
 	resource := pcommon.NewResource()
 	md := convertToOTLPMetrics("container.", m, resource, timestamp)
-	require.EqualValues(t, 26, md.ResourceMetrics().At(0).ScopeMetrics().Len())
+	require.EqualValues(t, 30, md.ResourceMetrics().At(0).ScopeMetrics().Len())
 	assert.EqualValues(t, conventions.SchemaURL, md.ResourceMetrics().At(0).SchemaUrl())
 }
 

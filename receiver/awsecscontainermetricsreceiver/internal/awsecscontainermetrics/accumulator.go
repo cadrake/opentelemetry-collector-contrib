@@ -25,6 +25,20 @@ func (acc *metricDataAccumulator) getMetricsData(containerStatsMap map[string]*C
 	timestamp := pcommon.NewTimestampFromTime(time.Now())
 	taskResource := taskResource(metadata)
 
+	if metadata.EphemeralStorageMetrics != nil {
+		taskMetrics.EphemeralStorageReserved = *metadata.EphemeralStorageMetrics.Reserved
+		taskMetrics.EphemeralStorageUtilized = *metadata.EphemeralStorageMetrics.Utilized
+	}
+
+	if metadata.ClockDrift != nil {
+		taskMetrics.ClockDriftErrorBound = *metadata.ClockDrift.ClockErrorBound
+		if metadata.ClockDrift.ClockSynchronizationStatus == "SYNCHRONIZED" {
+			taskMetrics.ClockDriftSynchronizationStatus = 1
+		} else {
+			taskMetrics.ClockDriftSynchronizationStatus = 0
+		}
+	}
+
 	for _, containerMetadata := range metadata.Containers {
 
 		containerResource := containerResource(containerMetadata, logger)
